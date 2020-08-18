@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
 
         fields = ('id','real_name','tz','activity_periods')
-        #lookup_field = 'activity_periods'
+
     def create(self, validated_data):
         activity_data = validated_data.pop('activity_periods')
         user = User.objects.create(**validated_data)

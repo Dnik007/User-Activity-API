@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.db import models
 from django.utils import timezone
+import datetime
 
 
 class User(models.Model):
@@ -12,3 +13,11 @@ class UserActivity(models.Model):
     user = models.ForeignKey(User, related_name='activity_periods', on_delete=models.CASCADE)
     start_time= models.DateTimeField()
     end_time= models.DateTimeField()
+
+    def start_time_in_future(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.start_time <= now
+
+    def end_time_in_future(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.end_time <= now
