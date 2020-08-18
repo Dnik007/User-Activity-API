@@ -20,3 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
         for activity_data in activity_data:
             UserActivity.objects.create(user=user, **activity_data)
         return user
+    def update(self, instance, validated_data):
+        instance.__dict__.update(**validated_data)
+        instance.save()
+
+        return instance
